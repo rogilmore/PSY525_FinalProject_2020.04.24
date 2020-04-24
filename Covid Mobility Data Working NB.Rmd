@@ -1,0 +1,88 @@
+---
+title: "Covid Mobility Data"
+author: "Amanda Moeller"
+date: "4/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+                            
+Load packages
+```{r}
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(scales)
+install.packages("quantmod")
+library(quantmod)
+```
+
+Load the Community Mobility Covid-19 dataset        
+```{r}
+# Data is located here: https://www.google.com/covid19/mobility/
+# For the present project, I dowloaded the global CSV.
+```
+
+Create a new data frame with only Pennsylvania mobility data
+```{r}
+PA_community_mobility <- subset(Global_Mobility_Report, 
+                                sub_region_1 == 'Pennsylvania', 
+                                select = c("sub_region_1", "sub_region_2", "date", "retail_and_recreation_percent_change_from_baseline","grocery_and_pharmacy_percent_change_from_baseline", "parks_percent_change_from_baseline", "transit_stations_percent_change_from_baseline", "workplaces_percent_change_from_baseline", "residential_percent_change_from_baseline"))
+
+```
+
+Let's get some plots going
+```{r}
+# Retail & recreation change over time plot:
+Retail_recreation_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=retail_and_recreation_percent_change_from_baseline,
+                         color=retail_and_recreation_percent_change_from_baseline))
+print(Retail_recreation_PA_change)
+
+# Grocery and pharmacy change over time plot:
+Grocery_pharmacy_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=grocery_and_pharmacy_percent_change_from_baseline,
+                         color=grocery_and_pharmacy_percent_change_from_baseline))
+print(Grocery_pharmacy_PA_change)
+
+# Parks change over time plot:
+Parks_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=parks_percent_change_from_baseline,
+                         color=parks_percent_change_from_baseline))
+print(Parks_PA_change)
+
+# Transit stations change over time plot:
+TransitStations_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=transit_stations_percent_change_from_baseline,
+                         color=transit_stations_percent_change_from_baseline))
+print(TransitStations_PA_change)
+
+# Workplaces change over time plot:
+Workplaces_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=workplaces_percent_change_from_baseline,
+                         color=workplaces_percent_change_from_baseline))
+print(Workplaces_PA_change)
+
+# Residential area change over time plot:
+Residential_PA_change <- 
+  ggplot(data=PA_community_mobility)+
+  geom_point(mapping=aes(x=date, y=residential_percent_change_from_baseline,
+                         color=residential_percent_change_from_baseline))
+print(Residential_PA_change)
+
+# Now I want to move these plots to a Shiny App
+```
+
+
+
+
