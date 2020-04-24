@@ -26,6 +26,10 @@ Load the Community Mobility Covid-19 dataset
 ```{r}
 # Data is located here: https://www.google.com/covid19/mobility/
 # For the present project, I dowloaded the global CSV.
+
+# You don't have to download a local copy of the database.
+# You can use readr::read_csv to put the file in memory.
+Global_Mobility_Report <- read_csv("https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv")
 ```
 
 Create a new data frame with only Pennsylvania mobility data
